@@ -1,0 +1,11 @@
+body {
+    background-image: url('../images/submitbg.jpg');
+    background-size: cover;
+    position: relative;
+    height: auto;
+}
+label {
+    color: white;
+    font-size: large;
+    font-weight: bold;
+}
