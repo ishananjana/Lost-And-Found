@@ -1,0 +1,6 @@
+body {
+    background-image: url(../images/lostbg.jpg);
+    background-size: cover;
+    position: relative;
+    height: auto;
+}
