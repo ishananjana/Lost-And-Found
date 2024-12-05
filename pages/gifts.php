@@ -39,27 +39,27 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Home</a>
+                        <a class="nav-link active" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="lost items.html">Lost Items</a>
+                        <a class="nav-link" href="lost items.php">Lost Items</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="found items.html">Found Items</a>
+                        <a class="nav-link" href="found items.php">Found Items</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="submit item.html">Submit Item</a>
+                        <a class="nav-link" href="submit item.php">Submit Item</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contactus.html">Contact</a>
+                        <a class="nav-link" href="contactus.php">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="gifts.html">Gift</a>
+                        <a class="nav-link" href="gifts.php">Gift</a>
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <a href="login.html" class="btn btn-outline-light me-2">Login</a>
-                    <a href="signup.html" class="btn btn-light">Sign Up</a>
+                    <a href="login.php" class="btn btn-outline-light me-2">Login</a>
+                    <a href="signup.php" class="btn btn-light">Sign Up</a>
                 </div>
             </div>
         </div>

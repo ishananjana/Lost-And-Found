@@ -36,7 +36,7 @@
                         </form>
                     </div>
                     <div class="card-footer text-center">
-                        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+                        <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
                         <p><a href="#">Forgot Password?</a></p>
                     </div>
                 </div>
