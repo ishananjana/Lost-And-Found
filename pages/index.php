@@ -49,8 +49,8 @@
         <div class="hero-text">
             <h2 class="display-4">Find Lost Items or Report Found Ones</h2>
             <p class="lead">Helping people reconnect with their lost belongings.</p>
-            <a href="lost items.html" class="btn btn-light btn-lg">View Lost Items</a>
-            <a href="submit item.html" class="btn btn-outline-light btn-lg">Submit a Found Item</a>
+            <a href="lost items.php" class="btn btn-light btn-lg">View Lost Items</a>
+            <a href="submit item.php" class="btn btn-outline-light btn-lg">Submit a Found Item</a>
         </div>
     </header>
 
