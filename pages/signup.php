@@ -1,3 +1,35 @@
+
+<?php
+include 'dbconfig.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
+    $role = isset($_POST['role']) && $_POST['role'] === 'admin' ? 'admin' : 'user'; // Default to 'user'
+
+    if ($password !== $confirmPassword) {
+        echo "Passwords do not match!";
+        exit;
+    }
+
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+    $stmt = $conn->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $username, $email, $hashedPassword, $role);
+
+    if ($stmt->execute()) {
+        echo "<script>alert('registration success!');window.location.href='login.php';</script>";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,22 +49,29 @@
                         <p>Create an account to report or find items.</p>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form method="POST" action="signup.php">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username" required>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
                             </div>
                             <div class="mb-3">
                                 <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                                <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Role</label>
+                                <select class="form-control" name="role" id="role">
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-dark">Sign Up</button>
