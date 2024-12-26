@@ -59,22 +59,22 @@ $conn->close();
                     </div>
                     <div class="card-body">
                     <form method="POST" action="login.php">
-    <div class="mb-3">
-        <label for="email" class="form-label">Email Address</label>
-        <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
-    </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
-    </div>
-    <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
-        <label class="form-check-label" for="rememberMe">Remember Me</label>
-    </div>
-    <div class="d-grid">
-        <button type="submit" class="btn btn-dark">Log In</button>
-    </div>
-</form>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember Me</label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark">Log In</button>
+                        </div>
+                    </form>
 
                     </div>
                     <div class="card-footer text-center">

@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
-    $role = isset($_POST['role']) && $_POST['role'] === 'admin' ? 'admin' : 'user'; // Default to 'user'
+    $role = isset($_POST['role']) && $_POST['role'] === 'admin' ? 'admin' : 'user';
 
     if ($password !== $confirmPassword) {
         echo "Passwords do not match!";
