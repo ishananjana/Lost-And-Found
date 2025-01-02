@@ -60,6 +60,10 @@
                 <label for="item-location" class="form-label">Location Found/Lost</label>
                 <input type="text" class="form-control" id="item-location" placeholder="Enter location">
             </div>
+            <div class="mb-3">
+                <label for="item-photo" class="form-label">Item Photo</label>
+                <input type="file" class="form-control" id="item-photo" name="item_photo" accept="image/*" required>
+            </div>
             <input type="radio" id="found" name="fav_language" value="found">
             <label for="found">Found</label><br>
             <input type="radio" id="Lost" name="fav_language" value="lost">
