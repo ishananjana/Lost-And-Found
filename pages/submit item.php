@@ -1,5 +1,7 @@
 <?php
 require_once 'dbconfig.php';
+if (isset($_POST['submit'])){
+
 $item_name = $_POST['item_name'];
 $item_desc = $_POST['item_desc'];
 $item_location = $_POST['item_location'];
@@ -19,7 +21,7 @@ if (move_uploaded_file($_FILES['item_photo']['tmp_name'], $item_photo)) {
 } else {
     echo "Error uploading file.";
 }
-
+}
 $conn->close();
 ?>
 
@@ -91,9 +93,9 @@ $conn->close();
             </div>
             <input type="radio" id="found" name="fav_language" value="found">
             <label for="found">Found</label><br>
-            <input type="radio" id="Lost" name="fav_language" value="lost">
+            <input type="radio" id="Lost" submitname="fav_language" value="lost">
             <label for="css">Lost</label><br>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+            <button type="submit" name="" class="btn btn-primary btn-lg btn-block">Submit</button>
         </form>
     </section>
 
