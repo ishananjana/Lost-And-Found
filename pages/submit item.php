@@ -11,12 +11,11 @@ if (isset($_POST['submit'])) {
         $item_photo = 'uploads/' . basename($_FILES['item_photo']['name']);
 
         if (move_uploaded_file($_FILES['item_photo']['tmp_name'], $item_photo)) {
-            // Insert data into database
             $sql = "INSERT INTO submit_items (item_name, item_desc, item_location, item_status, item_photo) 
                     VALUES ('$item_name', '$item_desc', '$item_location', '$item_status', '$item_photo')";
 
             if (mysqli_query($conn, $sql)) {
-                echo "Item submitted successfully!";
+                //echo "Item submitted successfully!";
             } else {
                 echo "Error: " . mysqli_error($conn);
             }
