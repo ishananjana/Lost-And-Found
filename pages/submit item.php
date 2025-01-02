@@ -1,27 +1,33 @@
 <?php
 require_once 'dbconfig.php';
-if (isset($_POST['submit'])){
 
-$item_name = $_POST['item_name'];
-$item_desc = $_POST['item_desc'];
-$item_location = $_POST['item_location'];
-$item_status = $_POST['item_status'];
-$item_photo = 'uploads/' . basename($_FILES['item_photo']['name']);
+if (isset($_POST['submit'])) {
+    $item_name = $_POST['item_name'];
+    $item_desc = $_POST['item_desc'];
+    $item_location = $_POST['item_location'];
+    $item_status = $_POST['item_status'];
 
-if (move_uploaded_file($_FILES['item_photo']['tmp_name'], $item_photo)) {
-    
-    $sql = "INSERT INTO submit_items (item_name, item_desc, item_location, item_status, item_photo) 
-            VALUES ('$item_name', '$item_desc', '$item_location', '$item_status', '$item_photo')";
-    
-    if ($conn->query($sql) === TRUE) {
-        echo "Item submitted successfully!";
+    if (isset($_FILES['item_photo']) && $_FILES['item_photo']['error'] === UPLOAD_ERR_OK) {
+        $item_photo = 'uploads/' . basename($_FILES['item_photo']['name']);
+
+        if (move_uploaded_file($_FILES['item_photo']['tmp_name'], $item_photo)) {
+            // Insert data into database
+            $sql = "INSERT INTO submit_items (item_name, item_desc, item_location, item_status, item_photo) 
+                    VALUES ('$item_name', '$item_desc', '$item_location', '$item_status', '$item_photo')";
+
+            if (mysqli_query($conn, $sql)) {
+                echo "Item submitted successfully!";
+            } else {
+                echo "Error: " . mysqli_error($conn);
+            }
+        } else {
+            echo "Failed to upload the file.";
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "File upload error!";
     }
-} else {
-    echo "Error uploading file.";
 }
-}
+
 $conn->close();
 ?>
 
@@ -74,28 +80,28 @@ $conn->close();
 
     <section id="submit-item" class="container my-5">
         <h2 class="text-center mb-4">Submit a Found/Lost Item</h2>
-        <form class="mx-auto" style="max-width: 600px; margin-bottom: 8rem;">
+        <form class="mx-auto" style="max-width: 600px; margin-bottom: 8rem;" method="post" action="submit item.php" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="item-name" class="form-label">Item Name</label>
-                <input type="text" class="form-control" id="item-name" placeholder="Enter item name">
+                <input type="text" class="form-control" id="item-name" name="item_name" placeholder="Enter item name">
             </div>
             <div class="mb-3">
                 <label for="item-desc" class="form-label">Item Description</label>
-                <textarea class="form-control" id="item-desc" rows="3" placeholder="Enter item description"></textarea>
+                <textarea class="form-control" id="item-desc" name="item_desc" rows="3" placeholder="Enter item description"></textarea>
             </div>
             <div class="mb-3">
                 <label for="item-location" class="form-label">Location Found/Lost</label>
-                <input type="text" class="form-control" id="item-location" placeholder="Enter location">
+                <input type="text" class="form-control" id="item-location" name="item_location" placeholder="Enter location">
             </div>
             <div class="mb-3">
                 <label for="item-photo" class="form-label">Item Photo</label>
                 <input type="file" class="form-control" id="item-photo" name="item_photo" accept="image/*" required>
             </div>
-            <input type="radio" id="found" name="fav_language" value="found">
+            <input type="radio" id="found" name="item_status" value="found">
             <label for="found">Found</label><br>
-            <input type="radio" id="Lost" submitname="fav_language" value="lost">
-            <label for="css">Lost</label><br>
-            <button type="submit" name="" class="btn btn-primary btn-lg btn-block">Submit</button>
+            <input type="radio" id="lost" name="item_status" value="lost">
+            <label for="lost">Lost</label><br>
+            <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
         </form>
     </section>
 
