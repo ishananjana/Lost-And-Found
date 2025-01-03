@@ -10,40 +10,7 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="../images/logo.png" class="logo"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="lost items.php">Lost Items</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="found items.php">Found Items</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="submit item.php">Submit Item</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contactus.php">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="gifts.php">Gift</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <a href="login.php" class="btn btn-outline-light me-2">Login</a>
-                    <a href="signup.php" class="btn btn-light">Sign Up</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php include_once 'navbar.php'; showNavbar(); ?>
     
     <header id="home" class="hero bg-primary text-white text-center d-flex align-items-center justify-content-center" style="height: 35rem;">
         <div class="hero-text">
@@ -77,9 +44,7 @@
         </div>
     </section>
     
-    <footer class="bg-dark text-white text-center py-3">
-        <p>&copy; Findr. All Rights Reserved.</p>
-    </footer>
+    <?php include_once 'footer.php'; showFooter(); ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
