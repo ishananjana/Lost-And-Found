@@ -44,9 +44,7 @@
     <div class="sidebar">
         <h4 class="text-center text-white">Admin Panel</h4>
         <a href="admin_dashboard.php">Dashboard</a>
-        <a href="manage_users.php">Manage Users</a>
         <a href="manage_items.php">Manage Items</a>
-        <a href="reports.php">Reports</a>
         <a href="logout.php">Logout</a>
     </div>
 
