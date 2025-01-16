@@ -15,26 +15,43 @@
     <section id="lost-items" class="container my-5">
         <h2 class="text-center mb-4">Lost Items</h2>
         <div class="row g-4" style="margin-bottom: 8rem;">
-            <div class="col-md-4">
+
+        <?php
+        
+            require_once 'dbconfig.php';
+
+            $sql = "SELECT * FROM submit_items WHERE item_status = 'lost' ";
+            $result = mysqli_query($conn,$sql);
+
+            $numrecord=mysqli_num_rows($result);
+
+
+            for($i=0;$i<$numrecord;$i++){
+                $data = mysqli_fetch_assoc($result);
+                $title = $data['item_name'];
+                $desc = $data['item_desc'];
+                $location = $data['item_location'];
+                $imgpath = $data['item_photo'];
+
+                echo'
+                <div class="col-md-4">
                 <div class="card">
-                    <img src="../images/wallet.jpg" class="card-img-top" alt="Lost Wallet">
+                    <img src="../pages/'.$imgpath.'" class="card-img-top" alt="Lost Wallet">
                     <div class="card-body">
-                        <h5 class="card-title">Lost Wallet</h5>
-                        <p class="card-text">Black leather wallet, lost in the park.</p>
-                        <p class="card-text"><small class="text-muted">Location: Central Park</small></p>
+                        <h5 class="card-title">'.$title.'</h5>
+                        <p class="card-text">'.$desc.'</p>
+                        <p class="card-text"><small class="text-muted">'.$location.'</small></p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="../images/iphone.jpg" class="card-img-top" alt="Lost iphone">
-                    <div class="card-body">
-                        <h5 class="card-title">Lost Phone</h5>
-                        <p class="card-text">iPhone 12, white color, with a cracked screen.</p>
-                        <p class="card-text"><small class="text-muted">Location: Train Station</small></p>
-                    </div>
-                </div>
-            </div>
+                
+                ';
+
+            }
+        
+        ?>
+            
+            
         </div>
     </section>
 
