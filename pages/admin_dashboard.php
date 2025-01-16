@@ -78,9 +78,10 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             <?php
-                            // $result = $conn->query("SELECT COUNT(*) AS total FROM items WHERE status = 'lost'");
-                            // $data = $result->fetch_assoc();
-                            // echo $data['total'];
+                                include 'dbconfig.php';
+                                $result = $conn->query("SELECT COUNT(*) AS total FROM submit_items WHERE item_status = 'lost'");
+                                $data = $result->fetch_assoc();
+                                echo $data['total'];
                             ?>
                         </h5>
                         <p class="card-text">View and manage all lost items.</p>
@@ -94,9 +95,9 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             <?php
-                            // $result = $conn->query("SELECT COUNT(*) AS total FROM items WHERE status = 'found'");
-                            // $data = $result->fetch_assoc();
-                            // echo $data['total'];
+                                $result = $conn->query("SELECT COUNT(*) AS total FROM submit_items WHERE item_status = 'found'");
+                                $data = $result->fetch_assoc();
+                                echo $data['total'];
                             ?>
                         </h5>
                         <p class="card-text">View and manage all found items.</p>

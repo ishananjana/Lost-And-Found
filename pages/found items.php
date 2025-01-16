@@ -15,26 +15,38 @@
         <div class="container" style="margin-bottom: 8rem;">
             <h2 class="text-center mb-4">Found Items</h2>
             <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="../images/watch.webp" class="card-img-top" alt="Lost watch">
-                        <div class="card-body">
-                            <h5 class="card-title">Found Watch</h5>
-                            <p class="card-text">Silver wristwatch, found near the library.</p>
-                            <p class="card-text"><small class="text-muted">Location: University Library</small></p>
+
+                <?php
+        
+                    require_once 'dbconfig.php';
+
+                    $sql = "SELECT * FROM submit_items WHERE item_status = 'found' ";
+                    $result = mysqli_query($conn,$sql);
+
+                    $numrecord=mysqli_num_rows($result);
+
+
+                    for($i=0;$i<$numrecord;$i++){
+                        $data = mysqli_fetch_assoc($result);
+                        $title = $data['item_name'];
+                        $desc = $data['item_desc'];
+                        $location = $data['item_location'];
+                        $imgpath = $data['item_photo'];
+
+                        echo '
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="../pages/'.$imgpath.'" class="card-img-top" alt="Lost Wallet">
+                                <div class="card-body">
+                                    <h5 class="card-title">'.$title.'</h5>
+                                    <p class="card-text">'.$desc.'</p>
+                                    <p class="card-text"><small class="text-muted">'.$location.'</small></p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="../images/bag.webp" class="card-img-top" alt="Lost backpack">
-                        <div class="card-body">
-                            <h5 class="card-title">Found Bag</h5>
-                            <p class="card-text">Red backpack with books and a laptop inside.</p>
-                            <p class="card-text"><small class="text-muted">Location: Coffee Shop</small></p>
-                        </div>
-                    </div>
-                </div>
+                        ';
+                    }
+                ?>
             </div>
         </div>
     </section>
