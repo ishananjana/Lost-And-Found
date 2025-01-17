@@ -1,22 +1,48 @@
 <?php
 require_once 'dbconfig.php';
 
-
+// Delete found item and move to gift_items
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
-    $delete_sql = "DELETE FROM submit_items WHERE id = '$delete_id'";
-    mysqli_query($conn, $delete_sql);
+
+    // Fetch the item details before deleting
+    $fetch_sql = "SELECT * FROM submit_items WHERE id = '$delete_id' AND item_status = 'found'";
+    $result = mysqli_query($conn, $fetch_sql);
+    $row = mysqli_fetch_assoc($result);
+
+    if ($row) {
+        // Insert into gift_items table
+        $insert_sql = "INSERT INTO gift_items (item_name, item_desc, item_location, item_photo) 
+                       VALUES ('{$row['item_name']}', '{$row['item_desc']}', '{$row['item_location']}', '{$row['item_photo']}')";
+        mysqli_query($conn, $insert_sql);
+
+        // Delete from submit_items table
+        $delete_sql = "DELETE FROM submit_items WHERE id = '$delete_id'";
+        mysqli_query($conn, $delete_sql);
+    }
+
     header("Location: manage_items.php");
     exit();
 }
 
+// Delete from gift_items table
+if (isset($_GET['delete_gift_id'])) {
+    $delete_gift_id = $_GET['delete_gift_id'];
+    $delete_sql = "DELETE FROM gift_items WHERE id = '$delete_gift_id'";
+    mysqli_query($conn, $delete_sql);
+
+    header("Location: manage_items.php");
+    exit();
+}
+
+// Update submit_items
 if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $item_name = $_POST['item_name'];
     $item_desc = $_POST['item_desc'];
     $item_location = $_POST['item_location'];
     $item_status = $_POST['item_status'];
-    
+
     $update_sql = "UPDATE submit_items SET 
                    item_name='$item_name', 
                    item_desc='$item_desc', 
@@ -24,12 +50,32 @@ if (isset($_POST['update'])) {
                    item_status='$item_status' 
                    WHERE id='$id'";
     mysqli_query($conn, $update_sql);
+
     header("Location: manage_items.php");
     exit();
 }
 
-$sql = "SELECT * FROM submit_items";
-$result = mysqli_query($conn, $sql);
+// Update gift_items
+if (isset($_POST['update_gift'])) {
+    $id = $_POST['id'];
+    $item_name = $_POST['item_name'];
+    $item_desc = $_POST['item_desc'];
+    $item_location = $_POST['item_location'];
+
+    $update_sql = "UPDATE gift_items SET 
+                   item_name='$item_name', 
+                   item_desc='$item_desc', 
+                   item_location='$item_location'
+                   WHERE id='$id'";
+    mysqli_query($conn, $update_sql);
+
+    header("Location: manage_items.php");
+    exit();
+}
+
+// Fetch all items
+$submit_items = mysqli_query($conn, "SELECT * FROM submit_items");
+$gift_items = mysqli_query($conn, "SELECT * FROM gift_items");
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +101,7 @@ $result = mysqli_query($conn, $sql);
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                <?php while ($row = mysqli_fetch_assoc($submit_items)) { ?>
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['item_name']; ?></td>
@@ -67,8 +113,8 @@ $result = mysqli_query($conn, $sql);
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id']; ?>">Edit</button>
                     </td>
                 </tr>
-                
 
+                <!-- Edit Modal -->
                 <div class="modal fade" id="editModal<?php echo $row['id']; ?>" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -104,6 +150,33 @@ $result = mysqli_query($conn, $sql);
                         </div>
                     </div>
                 </div>
+                <?php } ?>
+            </tbody>
+        </table>
+
+        <h2 class="text-center mt-5">Manage Gift Items</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = mysqli_fetch_assoc($gift_items)) { ?>
+                <tr>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo $row['item_name']; ?></td>
+                    <td><?php echo $row['item_desc']; ?></td>
+                    <td><?php echo $row['item_location']; ?></td>
+                    <td>
+                        <a href="manage_items.php?delete_gift_id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGiftModal<?php echo $row['id']; ?>">Edit</button>
+                    </td>
+                </tr>
                 <?php } ?>
             </tbody>
         </table>
