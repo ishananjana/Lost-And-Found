@@ -81,6 +81,7 @@
 
                 for($i=0;$i<$numrecord;$i++){
                     $data = mysqli_fetch_assoc($result);
+                    $id = $data['id'];
                     $title = $data['item_name'];
                     $desc = $data['item_desc'];
                     $location = $data['item_location'];
@@ -93,7 +94,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">'.$title.'</h5>
                                     <p class="card-text">'.$desc.'</p>
-                                    <a href="#" class="btn btn-dark w-100">Buy Now</a>
+                                    <a href="payment_details.php" class="btn btn-dark w-100">Buy Now</a>
                                 </div>
                             </div>
                         </div>
