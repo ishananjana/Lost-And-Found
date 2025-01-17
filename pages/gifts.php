@@ -70,50 +70,37 @@
         <h1 class="text-center mb-4">Found Items for Sale</h1>
         <p class="text-center mb-5"><b>These unique items were found unclaimed. Buy them as gifts at amazing prices!</b></p>
         <div id="products" class="row g-4">
-            
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card">
-                    <img src="../images/watch.webp" class="card-img-top" alt="Product Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Stylish Watch</h5>
-                        <p class="card-text">$50 - A sleek silver watch in excellent condition.</p>
-                        <a href="#" class="btn btn-dark w-100">Buy Now</a>
-                    </div>
-                </div>
-            </div>
+            <?php
         
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card">
-                    <img src="../images/wallet.jpg" class="card-img-top" alt="Product Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Leather Wallet</h5>
-                        <p class="card-text">$25 - A premium leather wallet, as good as new.</p>
-                        <a href="#" class="btn btn-dark w-100">Buy Now</a>
-                    </div>
-                </div>
-            </div>
+                require_once 'dbconfig.php';
+
+                $sql = "SELECT * FROM gift_items ";
+                $result = mysqli_query($conn,$sql);
+
+                $numrecord=mysqli_num_rows($result);
+
+                for($i=0;$i<$numrecord;$i++){
+                    $data = mysqli_fetch_assoc($result);
+                    $title = $data['item_name'];
+                    $desc = $data['item_desc'];
+                    $location = $data['item_location'];
+                    $imgpath = $data['item_photo'];
+
+                    echo '
+                        <div class="col-sm-6 col-md-4 col-lg-3">
+                            <div class="card">
+                                <img src="../pages/'.$imgpath.'" class="card-img-top" alt="Product Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">'.$title.'</h5>
+                                    <p class="card-text">'.$desc.'</p>
+                                    <a href="#" class="btn btn-dark w-100">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    ';
+                }
+            ?>
         
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card">
-                    <img src="../images/bag.webp" class="card-img-top" alt="Product Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Backpack</h5>
-                        <p class="card-text">$40 - A sturdy backpack perfect for travel.</p>
-                        <a href="#" class="btn btn-dark w-100">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card">
-                    <img src="../images/bluetooth speaker.webp" class="card-img-top" alt="Product Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Bluetooth Speaker</h5>
-                        <p class="card-text">$60 - A compact yet powerful speaker.</p>
-                        <a href="#" class="btn btn-dark w-100">Buy Now</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
