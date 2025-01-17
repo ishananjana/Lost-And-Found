@@ -1,22 +1,21 @@
 <?php
 require_once 'dbconfig.php';
 
-// Delete found item and move to gift_items
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
 
-    // Fetch the item details before deleting
+    
     $fetch_sql = "SELECT * FROM submit_items WHERE id = '$delete_id' AND item_status = 'found'";
     $result = mysqli_query($conn, $fetch_sql);
     $row = mysqli_fetch_assoc($result);
 
     if ($row) {
-        // Insert into gift_items table
+        
         $insert_sql = "INSERT INTO gift_items (item_name, item_desc, item_location, item_photo) 
                        VALUES ('{$row['item_name']}', '{$row['item_desc']}', '{$row['item_location']}', '{$row['item_photo']}')";
         mysqli_query($conn, $insert_sql);
 
-        // Delete from submit_items table
+        
         $delete_sql = "DELETE FROM submit_items WHERE id = '$delete_id'";
         mysqli_query($conn, $delete_sql);
     }
@@ -25,7 +24,6 @@ if (isset($_GET['delete_id'])) {
     exit();
 }
 
-// Delete from gift_items table
 if (isset($_GET['delete_gift_id'])) {
     $delete_gift_id = $_GET['delete_gift_id'];
     $delete_sql = "DELETE FROM gift_items WHERE id = '$delete_gift_id'";
@@ -35,7 +33,6 @@ if (isset($_GET['delete_gift_id'])) {
     exit();
 }
 
-// Update submit_items
 if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $item_name = $_POST['item_name'];
@@ -55,7 +52,6 @@ if (isset($_POST['update'])) {
     exit();
 }
 
-// Update gift_items
 if (isset($_POST['update_gift'])) {
     $id = $_POST['id'];
     $item_name = $_POST['item_name'];
@@ -73,7 +69,6 @@ if (isset($_POST['update_gift'])) {
     exit();
 }
 
-// Fetch all items
 $submit_items = mysqli_query($conn, "SELECT * FROM submit_items");
 $gift_items = mysqli_query($conn, "SELECT * FROM gift_items");
 ?>
@@ -114,7 +109,6 @@ $gift_items = mysqli_query($conn, "SELECT * FROM gift_items");
                     </td>
                 </tr>
 
-                <!-- Edit Modal -->
                 <div class="modal fade" id="editModal<?php echo $row['id']; ?>" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -162,6 +156,7 @@ $gift_items = mysqli_query($conn, "SELECT * FROM gift_items");
                     <th>Item Name</th>
                     <th>Description</th>
                     <th>Location</th>
+                    <th>Price</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -172,6 +167,7 @@ $gift_items = mysqli_query($conn, "SELECT * FROM gift_items");
                     <td><?php echo $row['item_name']; ?></td>
                     <td><?php echo $row['item_desc']; ?></td>
                     <td><?php echo $row['item_location']; ?></td>
+                    <td>$<?= number_format($row['price'], 2) ?></td>
                     <td>
                         <a href="manage_items.php?delete_gift_id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGiftModal<?php echo $row['id']; ?>">Edit</button>
