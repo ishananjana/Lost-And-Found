@@ -60,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
             <button type="submit" class="btn btn-success w-100">Proceed to Pay</button>
+            <!-- <a href="payment_success.php" class="btn btn-dark w-100">Proceed to pay</a> -->
         </form>
     </div>
 </body>
